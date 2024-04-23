@@ -19,4 +19,3 @@ EXPOSE 4321
  
 # Define the command to run the Spring Boot application when the container starts
 CMD ["java", "-jar", "spring-boot-app.jar"]
-has context menu
