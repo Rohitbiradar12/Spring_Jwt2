@@ -14,6 +14,12 @@ RUN apt-get update && \
     apt-get install -y awscli && \
     apt-get install -y curl
  
+# Copy the .env file to the container
+COPY .env /app/.env
+ 
+# Run aws configure using environment variables from .env file
+RUN export $(cat /app/.env | xargs)
+ 
 # Expose port 4321
 EXPOSE 4321
  
