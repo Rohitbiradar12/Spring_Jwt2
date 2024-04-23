@@ -12,14 +12,14 @@ FILE_NAME = 'tokens.csv'
 # Function to create bucket if it doesn't exist
 def create_bucket_if_not_exists(bucket_name):
     logging.debug("Creating bucket if not exists...")
-    s3_client = boto3.client('s3', region_name='ap-south-1')
+    s3_client = boto3.client('s3', region_name='eu-west-2')
     
     try:
         s3_client.head_bucket(Bucket=bucket_name)
         logging.debug(f"Bucket {bucket_name} already exists.")
     except ClientError as e:
         if e.response['Error']['Code'] == '404':
-            s3_client.create_bucket(Bucket=bucket_name, CreateBucketConfiguration={'LocationConstraint': 'ap-south-1'})
+            s3_client.create_bucket(Bucket=bucket_name, CreateBucketConfiguration={'LocationConstraint': 'eu-west-2'})
             logging.debug(f"Created new bucket: {bucket_name}")
         else:
             logging.error(f"Error checking bucket existence: {e}")
