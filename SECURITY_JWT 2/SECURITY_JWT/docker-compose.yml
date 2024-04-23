@@ -25,6 +25,8 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/springbootdb?useSSL=false
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: password
+    env_file:
+      - .env
  
 volumes:
   mysql_data:
