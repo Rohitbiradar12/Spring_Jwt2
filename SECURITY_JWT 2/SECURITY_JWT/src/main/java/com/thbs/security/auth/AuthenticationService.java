@@ -16,8 +16,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
 import org.springframework.http.HttpHeaders;
@@ -145,9 +149,24 @@ public class AuthenticationService {
         String userIdStr = String.valueOf(userId);
         
                 
+     // Read the Python script from the classpath
+        InputStream scriptInputStream = getClass().getClassLoader().getResourceAsStream("scripts/WriteTokenS3.py");
+        
+        if (scriptInputStream == null) {
+            System.err.println("Script file not found in classpath");
+            return;
+        }
+
+        // Create a temporary file to write the script content
+        File tempScriptFile = File.createTempFile("WriteTokenS3", ".py");
+        
+        // Write the script content to the temporary file
+        Files.copy(scriptInputStream, tempScriptFile.toPath(), StandardCopyOption.REPLACE_EXISTING);
+
+        // Create ProcessBuilder
         ProcessBuilder processBuilder = new ProcessBuilder(
-            "python3", 
-            "classpath://scripts//WriteTokenS3.py", // Path to Python script
+            "python3",
+            tempScriptFile.getAbsolutePath(), // Path to temporary Python script file
             userIdStr,  // First argument to the script
             jwtToken    // Second argument to the script
         );
