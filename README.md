@@ -15,14 +15,14 @@ Prerequisites:
 
 
 Clone the Repository:
-git clone https://github.com/Rohitbiradar12/applicationgateway.git
-cd applicationgateway
+git clone https://github.com/Rohitbiradar12/Spring_Jwt2.git
+cd Spring_Jwt2
 
 Build the Project:
-mvn clean install
+mvn clean package
 
 Run the Application:
-java -jar target/applicationgateway.jar
+java -jar target/application.jar
 
 Access the Gateway:
 Once the application is running, you can access the gateway at http://localhost:8085.
